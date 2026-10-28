@@ -1,0 +1,95 @@
+.portrait-viewer { min-width: 0; }
+.portrait-stage { position: relative; width: 100%; aspect-ratio: .84; max-height: 750px; perspective: 1400px; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; background: radial-gradient(ellipse at 50% 42%, #49494933, transparent 68%), #171717; border: 1px solid #494949; }
+.portrait-stage:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+.portrait-stage.is-dragging { cursor: grabbing; }
+.portrait-stage-heading { position: absolute; top: 18px; left: 19px; right: 19px; display: flex; align-items: center; justify-content: space-between; color: #a1a1a1; font-size: 7px; letter-spacing: .13em; pointer-events: none; }
+.portrait-stage-heading > span:last-child { font-family: Georgia, serif; font-size: 15px; letter-spacing: 0; color: var(--accent); }
+.portrait-object { position: absolute; left: 10%; top: 10%; width: 80%; height: 79%; transform-style: preserve-3d; transition: transform .24s ease-out; will-change: transform; }
+.is-dragging .portrait-object, .is-spinning .portrait-object { transition: none; }
+.portrait-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border: 1px solid #91919180; overflow: hidden; background: #333333; }
+.portrait-front { transform: translateZ(7px); }
+.portrait-front > img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 23%; filter: saturate(.65); pointer-events: none; }
+.portrait-front::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, #00000055, transparent 30%, transparent 65%, #00000099); pointer-events: none; }
+.portrait-gloss { position: absolute; z-index: 2; inset: 0; background: linear-gradient(120deg, #e2e2e218, transparent 35%, transparent 65%, #e2e2e208); pointer-events: none; }
+.portrait-front .portrait-top, .portrait-front .portrait-bottom { left: 19px; right: 19px; font-size: 7px; }
+.portrait-front .portrait-top { top: 19px; }
+.portrait-front .portrait-bottom { bottom: 19px; }
+.portrait-front .portrait-bottom > span:last-child { font-size: 10px; }
+.portrait-back { transform: rotateY(180deg) translateZ(7px); display: flex; flex-direction: column; justify-content: space-between; padding: 25px; color: var(--accent); background: radial-gradient(ellipse at 50% 40%, #313131, #191919 75%); }
+.portrait-back-top, .portrait-back-bottom { display: flex; flex-direction: column; gap: 10px; font-size: 8px; letter-spacing: .13em; position: relative; z-index: 1; }
+.portrait-back-top > span, .portrait-back-bottom > span { font-size: 6px; color: #878787; }
+.portrait-back-bottom { font-size: 11px; letter-spacing: .06em; line-height: 1.7; }
+.portrait-back-orbit { position: absolute; inset: 0; width: 100%; height: 100%; stroke: #a2a2a2; stroke-width: .6; opacity: .2; }
+.portrait-back-mark { text-align: center; position: relative; z-index: 1; }
+.portrait-back-mark > strong { display: block; font-family: Georgia, serif; font-style: italic; font-size: clamp(68px, 7vw, 125px); font-weight: 400; letter-spacing: -.08em; }
+.portrait-back-mark > strong > span { color: #e2e2e2; }
+.portrait-back-mark > span { display: block; margin-top: 15px; font-size: 12px; letter-spacing: .4em; }
+.portrait-edge { position: absolute; display: block; background: linear-gradient(90deg, #272727, #8c8c8c77, #242424); backface-visibility: hidden; }
+.portrait-edge-left, .portrait-edge-right { top: 0; height: 100%; width: 14px; transform: translateX(-50%) rotateY(90deg); }
+.portrait-edge-left { left: 0; transform: translateX(-50%) rotateY(-90deg); }
+.portrait-edge-right { left: 100%; }
+.portrait-edge-top, .portrait-edge-bottom { left: 0; width: 100%; height: 14px; transform: translateY(-50%) rotateX(90deg); }
+.portrait-edge-top { top: 0; }
+.portrait-edge-bottom { top: 100%; transform: translateY(-50%) rotateX(-90deg); }
+.portrait-ground { position: absolute; bottom: 4.7%; left: 5%; width: 90%; height: 11%; border: 1px solid #b5b5b529; border-radius: 50%; pointer-events: none; }
+.portrait-ground::after { content: ''; position: absolute; inset: 14% 8%; border: 1px solid #b5b5b512; border-radius: 50%; }
+.portrait-cast-shadow { position: absolute; left: 10%; right: 10%; bottom: 3%; height: 14%; background: radial-gradient(ellipse, #00000099, transparent 65%); filter: blur(8px); pointer-events: none; }
+.portrait-stage-note { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; font-size: 6px; letter-spacing: .22em; color: #868686; pointer-events: none; }
+.portrait-controls { padding: 17px 0 0; }
+.portrait-control-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #9b9b9b; font-size: 9px; }
+.portrait-control-row output { color: var(--accent); font-size: 11px; font-variant-numeric: tabular-nums; letter-spacing: .09em; }
+.portrait-angle { display: block; width: 100%; height: 24px; padding: 0; margin: 7px 0 5px; background: transparent; cursor: ew-resize; accent-color: var(--accent); }
+.portrait-angle:focus-visible { outline: 1px solid var(--accent); outline-offset: 3px; }
+.portrait-angle::-webkit-slider-runnable-track { height: 2px; background: #5e5e5e; }
+.portrait-angle::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); margin-top: -4px; }
+.portrait-angle { -webkit-appearance: none; appearance: none; }
+.portrait-angle::-moz-range-track { height: 2px; background: #5e5e5e; }
+.portrait-angle::-moz-range-thumb { border: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); }
+.portrait-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.portrait-nudges { display: flex; gap: 7px; }
+.portrait-nudges > button { width: 36px; height: 36px; border: 1px solid #5a5a5a; border-radius: 50%; padding: 9px; color: var(--accent); }
+.portrait-nudges svg { display: block; width: 100%; height: 100%; }
+.portrait-auto, .portrait-reset { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 36px; font-size: 10px; padding: 5px 8px; }
+.portrait-auto { color: var(--accent); }
+.portrait-auto .play-symbol { border-left-width: 5px; border-top-width: 3px; border-bottom-width: 3px; }
+.portrait-auto .pause-symbol { width: 6px; height: 8px; }
+.portrait-auto.is-active { color: #e6e6e6; }
+.portrait-auto:disabled { cursor: default; opacity: .4; }
+.portrait-reset { color: #b0b0b0; padding-right: 0; }
+.portrait-reset > span { font-size: 19px; }
+.portrait-actions button:hover:not(:disabled) { color: #ebebeb; }
+@media (min-width: 1800px) {
+  .portrait-control-row { font-size: 11px; }
+  .portrait-auto, .portrait-reset { font-size: 12px; }
+}
+@media (max-width: 900px) {
+  .portrait-stage { aspect-ratio: .69; }
+  .portrait-stage-heading { font-size: 5px; left: 12px; right: 12px; top: 14px; }
+  .portrait-front .portrait-top, .portrait-front .portrait-bottom { left: 12px; right: 12px; font-size: 5px; }
+  .portrait-front .portrait-bottom > span:last-child { font-size: 8px; }
+  .portrait-front .portrait-top .seal { width: 18px; height: 28px; font-size: 11px; }
+  .portrait-back { padding: 17px; }
+  .portrait-back-top { font-size: 6px; }
+  .portrait-back-top > span, .portrait-back-bottom > span { font-size: 5px; }
+  .portrait-back-bottom { font-size: 9px; }
+  .portrait-back-mark > strong { font-size: 65px; }
+  .portrait-control-row { font-size: 8px; }
+  .portrait-auto, .portrait-reset { font-size: 9px; gap: 6px; }
+  .portrait-nudges { gap: 5px; }
+  .portrait-nudges > button { width: 32px; height: 36px; padding: 8px; border-radius: 4px; }
+}
+@media (max-width: 640px) {
+  .portrait-stage { aspect-ratio: .84; max-height: 610px; }
+  .portrait-stage-heading { font-size: 7px; left: 17px; right: 17px; }
+  .portrait-front .portrait-top, .portrait-front .portrait-bottom { left: 16px; right: 16px; font-size: 7px; }
+  .portrait-front .portrait-bottom > span:last-child { font-size: 10px; }
+  .portrait-back { padding: 23px; }
+  .portrait-back-top { font-size: 8px; }
+  .portrait-back-top > span, .portrait-back-bottom > span { font-size: 6px; }
+  .portrait-back-mark > strong { font-size: 90px; }
+  .portrait-back-bottom { font-size: 11px; }
+  .portrait-control-row { font-size: 10px; }
+  .portrait-auto, .portrait-reset { min-height: 44px; font-size: 11px; }
+  .portrait-nudges > button { width: 44px; height: 44px; padding: 11px; border-radius: 50%; }
+  .portrait-nudges { gap: 9px; }
+}

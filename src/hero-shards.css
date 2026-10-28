@@ -1,0 +1,14 @@
+.hero-shards { position: absolute; z-index: -2; left: -11%; top: 0; width: 83%; height: 100%; pointer-events: none; opacity: .32; mask-image: linear-gradient(90deg, transparent, #000000 14%, #000000 67%, transparent 100%); }
+.hero-shards > .aero-shards { position: absolute; inset: 0; opacity: 0; transition: opacity 1.5s; }
+.hero-shards.is-ready > .aero-shards { opacity: 1; }
+.hero-shards-fallback { position: absolute; inset: 0; overflow: hidden; opacity: 1; transition: opacity 1.5s; mask-image: radial-gradient(ellipse at 42% 48%, #000000 20%, transparent 72%); }
+.hero-shards.is-ready > .hero-shards-fallback { opacity: 0; }
+.hero-shards-fallback > i { position: absolute; left: var(--shard-x); top: var(--shard-y); width: var(--shard-size); height: calc(var(--shard-size) * 2.3); clip-path: polygon(17% 0, 98% 24%, 63% 100%, 0 69%); background: linear-gradient(132deg, #252525 5%, #c5c5c5 17%, #484848 22%, #101010 56%, #737373 77%, #262626 80%); transform: rotate(var(--shard-angle)); opacity: .65; animation: shard-drift var(--shard-duration) ease-in-out var(--shard-delay) infinite alternate; }
+.hero-shards.is-paused .hero-shards-fallback > i { animation-play-state: paused; }
+@keyframes shard-drift { 0% { transform: translate3d(-14px, 22px, 0) rotate(var(--shard-angle)) rotateY(-20deg); } 100% { transform: translate3d(30px, -37px, 0) rotate(calc(var(--shard-angle) + 37deg)) rotateY(34deg); } }
+@media (max-width: 640px) {
+  .hero-shards { width: 110%; height: 88%; left: -30%; top: 12%; opacity: .28; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-shards-fallback > i { animation: none; }
+}
